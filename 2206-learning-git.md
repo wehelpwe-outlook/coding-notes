@@ -85,14 +85,14 @@ Using git fetch first, then merge with local main
        ab8eae1..a5da652  main -> main
     branch 'main' set up to track 'origin/main'.
 
-Solution 2: (add --allow-unrelated-histories)
+Solution 2: **NOT WORK** !!! (add --allow-unrelated-histories)
 
     hp@hp MINGW64 ~/Desktop/code/2206-learning-git (main)
     $ git push -u origin main --allow-unrelated-histories
 
 
 ---
-Check branch:
+## git branch:
 
     $ git branch
     * main
@@ -108,3 +108,51 @@ Check branch:
       remote-gitignore
       remotes/origin/main
 
+## Modify file in remote, sync to local 
+git pull
+
+## Modify file in remote, sync to local 
+git push
+
+## Working with branch, raise pull request to merge with main
+git branch feature-a
+
+git checkout feature-a
+
+vi  utils.js
+
+git add .
+
+git commit -m "utils.js added"
+
+git push --set-upstream origin feature-a
+
+Then on github.com, raise pull request and merge with main
+
+## Rebase, when main branch changed, working local branch **feature-xyz** need rebase with main
+git checkout -b feature-xyz
+
+vi index.html
+
+git add index.html
+
+git commit -m "modify working branch html"
+
+git push --set-upstream origin feature-xyz
+
+git log --oneline
+
+git pull --rebase origin main
+
+ERROR, need to manual merge remote change to index.html and local branch feature-xyz change to index.html
+
+git rebase --continue
+
+After all change merge done:
+
+git push  // Error, using -f to force
+
+git push -f
+
+## check defined remote repository
+git remote -v
